@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        primary:'#F3603F'
+        primary:'#F3603F',
+        lightGray: "#F2F3F2",
       },
       fontFamily: {
         gilroy: ["Gilroy-Regular"], // Now Tailwind understands "font-gilroy"

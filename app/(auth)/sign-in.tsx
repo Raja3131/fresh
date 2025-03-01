@@ -10,13 +10,17 @@ import {
   Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 import Button from "@/components/Button";
+import { useRouter } from "expo-router";
+
 
 const SignIn = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+      const router = useRouter();
+  
 
   useEffect(() => {
     const showListener = Keyboard.addListener("keyboardDidShow", () => setKeyboardVisible(true));
@@ -39,7 +43,7 @@ const SignIn = () => {
           <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
             <View className="flex-1 justify-center px-6">
               <View className="items-center">
-                <Image className="mt-10" source={require("../assets/images/logoapple.png")} />
+                <Image className="mt-10" source={require("../../assets/images/logoapple.png")} />
               </View>
 
               <View className="mt-6">
@@ -57,7 +61,9 @@ const SignIn = () => {
                 <Text className="text-sm text-gray-500 self-end mt-2" style={{ fontFamily: "Gilroy-Bold" }}>Forgot Password?</Text>
 
                 <View className={`mt-6 ${isKeyboardVisible ? "mb-4" : "mb-16"}`}>
-                  <Button title="Login" onPress={() => alert("Button Clicked!")} />
+                  <Button title="Login" onPress={() => {
+                    router.push("/(root)/(tabs)/shop");
+                  }} />
                 </View>
               </View>
 

@@ -1,12 +1,13 @@
-import search from '../../assets/images/search.png'
-import profile from '../../assets/images/profile.png'
-import cart from '../../assets/images/cart.png'
-import shop from '../../assets/images/shop.png'
-import star from '../../assets/images/star.png'
-export default {
-    search,
-    profile,
-    cart,
-    shop,
-    star
-}
+const icons = {
+    search: require("../../assets/images/search.png"),
+    profile: require("../../assets/images/profile.png"),
+    cart: require("../../assets/images/cart.png"),
+    shop: require("../../assets/images/shop.png"),
+    star: require("../../assets/images/star.png"),
+    logoapple: require("../../assets/images/logoapple.png"),
+    heart: require("../../assets/images/heart.png"),
+    shape: require("../../assets/images/shape.png"),
+    exclude: require("../../assets/images/exclude.png"),
+  };
+  export default icons;
+  
