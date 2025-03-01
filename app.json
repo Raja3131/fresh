@@ -13,27 +13,39 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/icon.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "image": "./assets/images/splash.png",
+          "resizeMode": "cover",
+          // "backgroundColor": "#ffffff",
+          "enableFullScreenImage_legacy":true
         }
-      ]
-    ],
+      ],
+    [
+      "expo-font",
+      {
+        "custom": {
+          "Gilroy-Regular": "./assets/fonts/Gilroy-Regular.ttf",
+          "Gilroy-Bold": "./assets/fonts/Gilroy-Bold.ttf",
+          "Gilroy-Light": "./assets/fonts/Gilroy-Light.ttf",
+          "Gilroy-SemiBold": "./assets/fonts/Gilroy-SemiBold.ttf",
+          "Gilroy-Medium": "./assets/fonts/Gilroy-Medium.ttf"
+        }
+      }
+    ]
+  ],
     "experiments": {
       "typedRoutes": true
     }
