@@ -8,19 +8,24 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/bg.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
+        "foregroundImage": "./assets/images/bg.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/images/bg.png"
     },
     "plugins": [
       "expo-router",
@@ -28,24 +33,22 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/bg.png",
-          "resizeMode": "cover",
-          // "backgroundColor": "#ffffff",
-          "enableFullScreenImage_legacy":true
+          "resizeMode": "cover"
         }
       ],
-    [
-      "expo-font",
-      {
-        "custom": {
-          "Gilroy-Regular": "./assets/fonts/Gilroy-Regular.ttf",
-          "Gilroy-Bold": "./assets/fonts/Gilroy-Bold.ttf",
-          "Gilroy-Light": "./assets/fonts/Gilroy-Light.ttf",
-          "Gilroy-SemiBold": "./assets/fonts/Gilroy-SemiBold.ttf",
-          "Gilroy-Medium": "./assets/fonts/Gilroy-Medium.ttf"
+      [
+        "expo-font",
+        {
+          "custom": {
+            "Gilroy-Regular": "./assets/fonts/Gilroy-Regular.ttf",
+            "Gilroy-Bold": "./assets/fonts/Gilroy-Bold.ttf",
+            "Gilroy-Light": "./assets/fonts/Gilroy-Light.ttf",
+            "Gilroy-SemiBold": "./assets/fonts/Gilroy-SemiBold.ttf",
+            "Gilroy-Medium": "./assets/fonts/Gilroy-Medium.ttf"
+          }
         }
-      }
-    ]
-  ],
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     }
