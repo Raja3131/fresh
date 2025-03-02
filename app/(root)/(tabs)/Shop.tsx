@@ -80,7 +80,8 @@ const Shop: React.FC = () => {
           </TouchableOpacity>
         </View>
         <ImageGrid products={filterProducts('bestSelling')} />
-        <NotifyModal visible={modalVisible} onClose={() => setModalVisible(false)} />
+        <NotifyModal visible={modalVisible} onClose={() => setModalVisible(false)}><Text className='font-gilroy-bold font-lg'>This Feature is Coming Soon</Text></NotifyModal>
+
       </ScrollView>
     </SafeAreaView>
   );

@@ -89,7 +89,10 @@ const Cart = () => {
       <View className="absolute bottom-16 left-0 w-full p-4 bg-white border-t border-gray-300">
         <Button title="Order Now" onPress={() => router.push('/Order')} />
       </View>
-      <NotifyModal visible={modalVisible} onClose={() => setModalVisible(false)} />
+      <NotifyModal visible={modalVisible} onClose={() => setModalVisible(false)}><Text className='font-gilroy-bold font-lg'>This Feature is Coming Soon</Text></NotifyModal>
+
+
+
     </View>
   );
 };

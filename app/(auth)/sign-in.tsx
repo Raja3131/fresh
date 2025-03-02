@@ -8,7 +8,6 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
   TouchableOpacity,
   StatusBar,
 } from "react-native";
@@ -17,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Input from "../../components/Input";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
-import setCredentials  from "../constants/auth";
+import setCredentials from "../constants/auth";
 import NotifyModal from "@/components/NotifyModal";
 
 const SignIn: React.FC = () => {
@@ -25,13 +24,13 @@ const SignIn: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [isKeyboardVisible, setKeyboardVisible] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
   const router = useRouter();
-  
 
   useEffect(() => {
     const showListener = Keyboard.addListener("keyboardDidShow", () => setKeyboardVisible(true));
     const hideListener = Keyboard.addListener("keyboardDidHide", () => setKeyboardVisible(false));
-    setCredentials()
+    setCredentials();
 
     return () => {
       showListener.remove();
@@ -39,15 +38,36 @@ const SignIn: React.FC = () => {
     };
   }, []);
 
+  const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
+  
   const handleLogin = async () => {
+    if (!email || !password) {
+      setModalMessage("Both fields are required.");
+      setModalVisible(true);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setModalMessage("Enter a valid email.");
+      setModalVisible(true);
+      return;
+    }
+
+    if (password.length < 6) {
+      setModalMessage("Password must be at least 6 characters.");
+      setModalVisible(true);
+      return;
+    }
+
     try {
       const storedEmail = await AsyncStorage.getItem("userEmail");
-    const storedPassword = await AsyncStorage.getItem("userPassword");
+      const storedPassword = await AsyncStorage.getItem("userPassword");
 
       if (email === storedEmail && password === storedPassword) {
         router.push("/(root)/(tabs)/shop");
       } else {
-        Alert.alert("Invalid Credentials", "Please check your email and password.");
+        setModalMessage("Invalid Credentials. Please check your email and password.");
+        setModalVisible(true);
       }
     } catch (error) {
       console.error("Error logging in: ", error);
@@ -56,7 +76,7 @@ const SignIn: React.FC = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <StatusBar hidden={false}/>
+      <StatusBar hidden={false} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
@@ -81,10 +101,13 @@ const SignIn: React.FC = () => {
                   <Input label="Password" onChangeText={setPassword} value={password} secureTextEntry={true} />
                 </View>
 
-               <TouchableOpacity onPress={() => setModalVisible(true)}>
-               <Text className="text-sm text-gray-500 self-end mt-2" style={{ fontFamily: "Gilroy-Bold" }}>Forgot Password?</Text>
+                <TouchableOpacity onPress={() => {
+                  setModalVisible(true)
+                  setModalMessage("This Feature is Coming Soon")
+                }}>
+                  <Text className="text-sm text-gray-500 self-end mt-2" style={{ fontFamily: "Gilroy-Bold" }}>Forgot Password?</Text>
+                </TouchableOpacity>
 
-               </TouchableOpacity>
                 <View className={`mt-6 ${isKeyboardVisible ? "mb-4" : "mb-16"}`}>
                   <Button title="Login" onPress={handleLogin} />
                 </View>
@@ -92,17 +115,21 @@ const SignIn: React.FC = () => {
 
               {!isKeyboardVisible && (
                 <View className="flex-row items-center justify-center mt-12">
-                <Text className="text-sm text-black-500" style={{ fontFamily: "Gilroy-Bold" }}>
-                  Don't have an account?{" "}
-                </Text>
-                <TouchableOpacity onPress={() => setModalVisible(true)}>
-                  <Text className="text-sm text-primary font-bold">Sign Up</Text>
-                </TouchableOpacity>
-              </View>
-              
+                  <Text className="text-sm text-black-500" style={{ fontFamily: "Gilroy-Bold" }}>
+                    Don't have an account?{" "}
+                  </Text>
+                  <TouchableOpacity onPress={() => {
+                     setModalVisible(true)
+                     setModalMessage("This Feature is Coming Soon")
+                  }}>
+                    <Text className="text-sm text-primary font-bold">Sign Up</Text>
+                  </TouchableOpacity>
+                </View>
               )}
             </View>
-            <NotifyModal visible={modalVisible} onClose={() => setModalVisible(false)} />
+            <NotifyModal visible={modalVisible} onClose={() => setModalVisible(false)}>
+              <Text className="text-lg font-bold text-center">{modalMessage}</Text>
+            </NotifyModal>
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
