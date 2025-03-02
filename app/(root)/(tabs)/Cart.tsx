@@ -13,15 +13,21 @@ const Cart = () => {
 
   const [liked, setLiked] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(1);
-  const [totalPrice, setTotalPrice] = useState<number>(product?.price ? parseFloat(product.price.replace(/\D/g, "")) : 80);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [productPrice, setProductPrice] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
-    if (product) {
-      setQuantity(1);
-      setTotalPrice(product.price ? parseFloat(product.price.replace(/\D/g, "")) : 80);
-    }
-  }, [product]);
+    const parsedPrice = product?.price ? parseFloat(product.price.replace(/\D/g, "")) : 0;
+    setProductPrice(parsedPrice);
+    setQuantity(1);
+    setTotalPrice(parsedPrice);
+  }, [params.product]);
+
+  const updateQuantity = (newQuantity: number) => {
+    setQuantity(newQuantity);
+    setTotalPrice(newQuantity * productPrice);
+  };
 
   return (
     <View className="flex-1">
@@ -34,9 +40,7 @@ const Cart = () => {
             </TouchableOpacity>
           </View>
 
-          {product?.image && (
-            <Image source={product.image} style={{ width: '100%', height: 250, resizeMode: 'contain' }} />
-          )}
+          <ImageSlider />
 
           <View className="flex-row justify-between items-center p-4">
             <Text style={{ fontFamily: 'Gilroy-Bold' }} className="text-2xl text-center">
@@ -56,10 +60,8 @@ const Cart = () => {
                   size={20}
                   color={'gray'}
                   onPress={() => {
-                    const newQty = quantity - 1;
-                    if (newQty > 0) {
-                      setQuantity(newQty);
-                      setTotalPrice(newQty * parseFloat(product?.price.replace(/\D/g, "")));
+                    if (quantity > 1) {
+                      updateQuantity(quantity - 1);
                     }
                   }}
                 />
@@ -69,11 +71,7 @@ const Cart = () => {
                 <Plus
                   size={20}
                   color={'#F3603F'}
-                  onPress={() => {
-                    const newQty = quantity + 1;
-                    setQuantity(newQty);
-                    setTotalPrice(newQty * parseFloat(product?.price.replace(/\D/g, "")));
-                  }}
+                  onPress={() => updateQuantity(quantity + 1)}
                 />
               </View>
               <Text className="p-4 font-gilroy">₹{totalPrice}</Text>
