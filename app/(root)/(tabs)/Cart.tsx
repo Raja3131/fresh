@@ -51,7 +51,6 @@ const Cart = () => {
                     setQuantity(newQty);
                     setPrice(newQty * 80);
                   }
-                  console.log(newQty);
                 }}/>
                 <View className="h-10 w-10 rounded-2xl bg-white border border-gray-300 flex-row justify-center items-center">
                   <Text className="text-lg font-gilroy-bold">{quantity}</Text>
@@ -60,7 +59,6 @@ const Cart = () => {
                   const newQty = quantity + 1;
                   setQuantity(newQty);
                   setPrice(newQty * 80);
-                  console.log(newQty);
                 }}/>
               </View>
               <Text className='p-4 font-gilroy'>₹{price}</Text>
