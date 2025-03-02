@@ -30,9 +30,9 @@ interface Product {
             resizeMode="contain"
           />
           <View className="w-full items-center flex-1">
-          <Text className="text-lg font-semibold">{product.name}</Text>
-          <Text className="text-gray-500">{product.qty}</Text>
-        <Text className="text-green-600 font-bold">{product.price}</Text>
+          <Text className="text-lg font-gilroy-semibold ">{product.name}</Text>
+          <Text className="text-gray-500 font-gilroy">{product.qty}</Text>
+        <Text className="text-green-600   font-gilroy-bold">{product.price}</Text>
           </View>
          <View className="self-end mt-2">
        {

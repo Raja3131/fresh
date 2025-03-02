@@ -18,7 +18,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
     <View className="w-[90%] mx-auto flex-row items-center bg-lightGray rounded-2xl px-4 shadow-sm">
       {icon && <View className="mr-2">{icon}</View>}
       <TextInput
-        className="flex-1 text-base text-black"
+        className="flex-1 text-base text-black font-gilroy"
         placeholder={placeholder}
         placeholderTextColor="#888"
         value={value}

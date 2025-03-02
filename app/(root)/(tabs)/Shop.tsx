@@ -56,7 +56,7 @@ const Shop: React.FC = () => {
 
         <View className="flex-row justify-center">
           <Image className="mt-2" source={require('../../../assets/images/exclude.png')} />
-          <Text className="mt-2 px-4 text-xl font-regular">Guindy, Chennai</Text>
+          <Text className="font-gilroy mt-2 px-4 text-xl font-regular">Guindy, Chennai</Text>
         </View>
 
         <View className="mt-4">
@@ -66,17 +66,17 @@ const Shop: React.FC = () => {
         <Image source={require('../../../assets/images/banner.png')} className="w-[90%] mx-auto p-6 mt-8 rounded-2xl" />
 
         <View className="flex-row justify-between items-center p-4">
-          <Text className="text-2xl font-bold">Exclusive Offer</Text>
+          <Text className="text-2xl font-gilroy-bold">Exclusive Offer</Text>
           <TouchableOpacity  onPress={() => setModalVisible(true)}>
-          <Text className="text-primary font-regular">See All</Text>
+          <Text className="text-primary font-regular font-gilroy">See All</Text>
           </TouchableOpacity>
         </View>
         <ImageGrid products={filterProducts('exclusiveOffer')} />
 
         <View className="flex-row justify-between items-center p-4 mt-6">
-          <Text className="text-2xl font-bold">Best Selling</Text>
+          <Text className="text-2xl font-gilroy-bold">Best Selling</Text>
           <TouchableOpacity  onPress={() => setModalVisible(true)}>
-          <Text className="text-primary font-regular">See All</Text>
+          <Text className="text-primary font-gilroy">See All</Text>
           </TouchableOpacity>
         </View>
         <ImageGrid products={filterProducts('bestSelling')} />

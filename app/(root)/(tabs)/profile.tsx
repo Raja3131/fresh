@@ -17,8 +17,8 @@ const Profile = () => {
   return (
     <SafeAreaView className="flex-1 bg-white items-center justify-center">
       <Image source={require("../../../assets/images/deliveryperson.jpeg")} className="w-24 h-24 rounded-full mb-4" />
-      <Text className="text-2xl font-bold mb-2" style={{ fontFamily: "Gilroy-Bold" }}>Manikandan</Text>
-      <Text className="text-lg text-gray-500 mb-6" style={{ fontFamily: "Gilroy-Regular" }}>My Profile</Text>
+      <Text className="text-2xl font-gilroy-bold mb-2" style={{ fontFamily: "Gilroy-Bold" }}>Manikandan</Text>
+      <Text className="text-lg font-gilroy text-gray-500 mb-6" style={{ fontFamily: "Gilroy-Regular" }}>My Profile</Text>
       <View className="w-40">
       <Button title="Logout" onPress={handleLogout} />
       </View>

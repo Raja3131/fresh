@@ -45,7 +45,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ onLogout, isOpen, setIsOpen }) => {
         style={{ transform: [{ translateX: slideAnim }], zIndex: 2 }}
       >
         <View className="flex-row justify-between items-center">
-        <Text className="text-xl font-bold">Hello, {usermail || "Guest"}</Text>
+        <Text className="text-xl font-gilroy-bold">Hello, {usermail || "Guest"}</Text>
         <TouchableOpacity onPress={
             () => setIsOpen(false)
         } className="flex-end justify-end">
@@ -61,7 +61,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ onLogout, isOpen, setIsOpen }) => {
           }}
           className="mt-6 bg-red-500 py-2 rounded-lg"
         >
-          <Text className="text-white text-center font-bold">Logout</Text>
+          <Text className="text-white text-center font-gilroy-bold">Logout</Text>
         </TouchableOpacity>
       </Animated.View>
     </>

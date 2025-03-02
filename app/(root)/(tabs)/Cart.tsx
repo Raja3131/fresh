@@ -40,7 +40,7 @@ const Cart = () => {
     </TouchableOpacity>
           </View>
 
-          <Text>1kg, Price</Text>
+          <Text className='font-gilroy text-lg ml-4'>1kg, Price</Text>
 
           <View>
             <View className="flex-row justify-between items-center">
@@ -54,7 +54,7 @@ const Cart = () => {
                   console.log(newQty);
                 }}/>
                 <View className="h-10 w-10 rounded-2xl bg-white border border-gray-300 flex-row justify-center items-center">
-                  <Text className="text-lg">{quantity}</Text>
+                  <Text className="text-lg font-gilroy-bold">{quantity}</Text>
                 </View>
                 <Plus size={20} color={'#F3603F'} onPress={()=>{
                   const newQty = quantity + 1;
@@ -63,7 +63,7 @@ const Cart = () => {
                   console.log(newQty);
                 }}/>
               </View>
-              <Text className='p-4'>₹{price}</Text>
+              <Text className='p-4 font-gilroy'>₹{price}</Text>
             </View>
           </View>
 

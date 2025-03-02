@@ -47,7 +47,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, content, rating }) => {
               {[...Array(5)].map((_, index) => (
                 <Star key={index} size={18} color={index < rating ? '#F3603F' : '#D3D3D3'} fill={index < rating ? '#F3603F' : '#D3D3D3'} />
               ))}
-              <Text className="ml-2 text-gray-600 ">({rating}/5)</Text>
+              <Text className="ml-2 text-gray-600 font-gilroy ">({rating}/5)</Text>
             </View>
           )}
           <Text  style={{fontFamily:'Gilroy-Regular'}}>{content}</Text>
