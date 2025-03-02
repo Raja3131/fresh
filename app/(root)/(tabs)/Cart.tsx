@@ -1,49 +1,91 @@
-import { StyleSheet, Text, View,SafeAreaView, Image, ImageBackground } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, ScrollView, Image, Pressable, TouchableOpacity, Platform } from 'react-native';
+import React, { useState } from 'react';
+import ImageSlider from '@/components/ImageSlider';
+import Accordion from '@/components/Accordion';
+import Button from '@/components/Button';
+import { router } from 'expo-router';
+import { ChevronLeft,Plus,Minus,Heart } from 'lucide-react-native';
+import NotifyModal from '@/components/NotifyModal';
 
 const Cart = () => {
+  const [liked, setLiked] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState<number>(1) 
+  const [price, setPrice] = useState<number>(80) 
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+  
+
   return (
-   <SafeAreaView>
-    <View>
-   
-    <View className='flex-row justify-between items-center p-4'>
-        <Image source={require('../../../assets/images/back.png')}/>
-        <Image source={require('../../../assets/images/upload.png')}/>
+    <View className="flex-1">
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}>
+        <View>
+          <View className="flex-row justify-between items-center p-4">
+            <ChevronLeft size={24} color="black" onPress={()=>{
+              router.push('/(root)/(tabs)/shop')
+            }}/>
+            <TouchableOpacity onPress={()=>{
+              setModalVisible(true);
+            }}>
+            <Image source={require('../../../assets/images/upload.png')} />
+            </TouchableOpacity>
+          </View>
 
+          <ImageSlider />
+
+          <View className="flex-row justify-between items-center p-4">
+            <Text style={{ fontFamily: 'Gilroy-Bold' }} className="text-2xl text-center">
+              Natural Red Apple
+            </Text>
+            <TouchableOpacity onPress={() => setLiked(!liked)}>
+      <Heart size={24} color={liked ? "red" : "black"} />
+    </TouchableOpacity>
+          </View>
+
+          <Text>1kg, Price</Text>
+
+          <View>
+            <View className="flex-row justify-between items-center">
+              <View className="flex-row gap-4 items-center p-4">
+                <Minus size={20} color={'gray'} onPress={()=>{
+                  const newQty = quantity - 1;
+                  if(newQty > 0){
+                    setQuantity(newQty);
+                    setPrice(newQty * 80);
+                  }
+                  console.log(newQty);
+                }}/>
+                <View className="h-10 w-10 rounded-2xl bg-white border border-gray-300 flex-row justify-center items-center">
+                  <Text className="text-lg">{quantity}</Text>
+                </View>
+                <Plus size={20} color={'#F3603F'} onPress={()=>{
+                  const newQty = quantity + 1;
+                  setQuantity(newQty);
+                  setPrice(newQty * 80);
+                  console.log(newQty);
+                }}/>
+              </View>
+              <Text className='p-4'>₹{price}</Text>
+            </View>
+          </View>
+
+          <View className="p-4">
+            <Accordion title="Product Detail" content="Apples are nutritious. Apples may be good for weight loss. apples may be good for your heart. As part of a healtful and varied diet." />
+            <Accordion title="Nutrients" content="Rich in vitamins and antioxidants, perfect for a healthy diet." />
+            <Accordion title="Customer Reviews" content="Great quality and fresh taste!" rating={4} />
+          </View>
+        </View>
+      </ScrollView>
+
+      <View className="absolute bottom-16 left-0 w-full p-4 bg-white border-t border-gray-300">
+        <Button title="Order Now" onPress={()=>{
+          router.push('/Order')
+        }} />
       </View>
-      <ImageBackground className='h-80' source={require('../../../assets/images/apple.png')}>
+      <NotifyModal visible={modalVisible} onClose={() => setModalVisible(false)} />
 
-</ImageBackground>
-<View className='flex-row justify-between items-center p-4'>
-  <Text style={{fontFamily:"Gilroy-Bold"}} className='text-2xl text-center'>Natural Red Apple</Text>
-  <Image source={require('../../../assets/images/heart.png')}/>
-</View>
-<Text>1kg, Price</Text>
-<View>
-<View className='flex-row justify-between items-center'>
-<View className='flex-row gap-4 items-center p-4'>
-<Image source={require('../../../assets/images/minus.png')}/>
-
-<View className="
-        h-10 w-10 rounded-full bg-white border border-gray-300 flex-row justify-center items-center 
-        "></View>
-<Image source={require('../../../assets/images/Plus.png')}/>
-
-</View>
-<Text>
-  <Text>Total: ₹199</Text>
-</Text>
-</View>
-</View>
-      
-    
-      
     </View>
+  );
+};
 
-   </SafeAreaView>
-  )
-}
+export default Cart;
 
-export default Cart
-
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

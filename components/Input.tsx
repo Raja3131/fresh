@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = ({ label, value, onChangeText, secureTextEnt
                 secureTextEntry={secureTextEntry}
                 autoCapitalize='none'
                 autoCorrect={false}
-                keyboardType={secureTextEntry? 'visible-password' : 'default'}
+                keyboardType="default"
                 ></TextInput>
 
         </View>

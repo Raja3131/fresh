@@ -47,7 +47,7 @@ const TabLayout = () => {
   headerShown: false,
   tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={icons.search} title="Explore" />,
 }} />
-<Tabs.Screen name="cart" options={{
+<Tabs.Screen name="Cart" options={{
   title: "Cart",
   headerShown: false,
   tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={icons.cart} title="Cart" />,

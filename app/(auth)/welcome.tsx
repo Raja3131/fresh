@@ -1,15 +1,18 @@
-import { View, Text, ImageBackground } from "react-native";
+import { View,SafeAreaView, Text, ImageBackground, StatusBar } from "react-native";
 import React from "react";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const WelcomeScreen = () => {
     const router = useRouter();
+    const insets = useSafeAreaInsets();
   return (
-   <View className="flex-1">
+   <View style={{ flex: 1,  position: "relative" }}>
+     <StatusBar hidden />
      <ImageBackground
       source={require("../../assets/images/deliveryperson.jpeg")}
-      className="flex-1 justify-end"
+      className="flex-1 absolute inset-0 justify-end"
     >
       <View className="w-full px-6 pb-12 bg-black/50">
         <Text className="text-white text-3xl font-bold text-center mb-4">

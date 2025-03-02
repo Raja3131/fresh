@@ -8,23 +8,30 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
+  TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Input from "../../components/Input";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
+import setCredentials  from "../constants/auth";
+import NotifyModal from "@/components/NotifyModal";
 
-
-const SignIn = () => {
+const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-      const router = useRouter();
+  const [isKeyboardVisible, setKeyboardVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const router = useRouter();
   
 
   useEffect(() => {
     const showListener = Keyboard.addListener("keyboardDidShow", () => setKeyboardVisible(true));
     const hideListener = Keyboard.addListener("keyboardDidHide", () => setKeyboardVisible(false));
+    setCredentials()
 
     return () => {
       showListener.remove();
@@ -32,8 +39,24 @@ const SignIn = () => {
     };
   }, []);
 
+  const handleLogin = async () => {
+    try {
+      const storedEmail = await AsyncStorage.getItem("userEmail");
+    const storedPassword = await AsyncStorage.getItem("userPassword");
+
+      if (email === storedEmail && password === storedPassword) {
+        router.push("/(root)/(tabs)/shop");
+      } else {
+        Alert.alert("Invalid Credentials", "Please check your email and password.");
+      }
+    } catch (error) {
+      console.error("Error logging in: ", error);
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
+      <StatusBar hidden={false}/>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
@@ -55,24 +78,31 @@ const SignIn = () => {
                 </View>
 
                 <View className="mt-4">
-                  <Input label="Password" onChangeText={setPassword} value={password} secureTextEntry />
+                  <Input label="Password" onChangeText={setPassword} value={password} secureTextEntry={true} />
                 </View>
 
-                <Text className="text-sm text-gray-500 self-end mt-2" style={{ fontFamily: "Gilroy-Bold" }}>Forgot Password?</Text>
+               <TouchableOpacity onPress={() => setModalVisible(true)}>
+               <Text className="text-sm text-gray-500 self-end mt-2" style={{ fontFamily: "Gilroy-Bold" }}>Forgot Password?</Text>
 
+               </TouchableOpacity>
                 <View className={`mt-6 ${isKeyboardVisible ? "mb-4" : "mb-16"}`}>
-                  <Button title="Login" onPress={() => {
-                    router.push("/(root)/(tabs)/shop");
-                  }} />
+                  <Button title="Login" onPress={handleLogin} />
                 </View>
               </View>
 
               {!isKeyboardVisible && (
-                <View className="flex items-center justify-center mt-12">
-                  <Text className="text-sm text-black-500" style={{ fontFamily: "Gilroy-Bold" }}>Don't have an account? Sign Up</Text>
-                </View>
+                <View className="flex-row items-center justify-center mt-12">
+                <Text className="text-sm text-black-500" style={{ fontFamily: "Gilroy-Bold" }}>
+                  Don't have an account?{" "}
+                </Text>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                  <Text className="text-sm text-primary font-bold">Sign Up</Text>
+                </TouchableOpacity>
+              </View>
+              
               )}
             </View>
+            <NotifyModal visible={modalVisible} onClose={() => setModalVisible(false)} />
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
